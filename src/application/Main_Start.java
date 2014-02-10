@@ -6,7 +6,9 @@ public class Main_Start {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		LoginGUI.initiate(args);
+//		MasterGUI mGUI = new MasterGUI();
+		MasterGUI.initiate(args);
+//		LoginGUI.initiate(args);
 //		RegisterGUI.initiate(args);
 //		SelectDeck4PlayGUI.initiate(args);
 //		CrewSec_CreateCardGUI.initiate(args);

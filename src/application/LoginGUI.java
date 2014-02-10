@@ -1,40 +1,43 @@
 package application;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 
-public class LoginGUI extends Application {
+public class LoginGUI {
 	
-	@Override
-	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Tabulan");
+	MasterGUI mGUI;
+	
+	Group contentGroup = new Group();
 
-		primaryStage.setFullScreen(true);
+	//constructor lets you send a MasterGUI object
+	public LoginGUI(MasterGUI masterGUI) {
+		contents(masterGUI);
+		mGUI = masterGUI;
+	}
 
+	//contentmethod with everything layout-ish
+	public void contents(MasterGUI masterGUI) {
+		
+		//main gridPane
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Text scenetitle = new Text("Välkommen till Tavernan");
+		//different fields with information or inputareas
+		Text scenetitle = new Text("Välkommen till värdshuset Tabulan");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		grid.add(scenetitle, 0, 0, 2, 1);
 
@@ -49,49 +52,40 @@ public class LoginGUI extends Application {
 
 		PasswordField pwBox = new PasswordField();
 		grid.add(pwBox, 1, 2);
-
+		
+		//login button
 		Button btnLogIn = new Button("Logga in");
 		HBox hbBtnLogIn = new HBox(10);
 		hbBtnLogIn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtnLogIn.getChildren().add(btnLogIn);
 		grid.add(hbBtnLogIn, 1, 3);
 
-		final Text actiontarget = new Text();
-		grid.add(actiontarget, 1, 6);
+//		final Text actiontarget = new Text();
+//		grid.add(actiontarget, 1, 6);
 
-		btnLogIn.setOnAction(new EventHandler<ActionEvent>() {
-
-			public void handle(ActionEvent e) {
-				actiontarget.setFill(Color.FIREBRICK);
-				actiontarget.setText("Sign in button pressed");
-			}
-		});
+		//lets MasterGUI handle the action performed by the login-button
+		btnLogIn.setOnAction(masterGUI);
 
 		Text txtRegister = new Text("Inte registrerad?");
 		txtRegister.setFont(Font.font("Tahoma", FontWeight.NORMAL, 12));
 		grid.add(txtRegister, 1, 4, 2, 1);
 
+		//register button
 		Button btnRegister = new Button("Registrera dig");
 		HBox hbBtnRegister = new HBox(10);
 		hbBtnRegister.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtnRegister.getChildren().add(btnRegister);
 		grid.add(hbBtnRegister, 1, 4);
 
-		btnRegister.setOnAction(new EventHandler<ActionEvent>() {
+		//lets MasterGUI handle the action
+		btnRegister.setOnAction(masterGUI);
+		
+		contentGroup.getChildren().addAll(grid);
 
-			public void handle(ActionEvent e) {
-				actiontarget.setFill(Color.FIREBRICK);
-				actiontarget.setText("Register button pressed");
-			}
-		});
-
-		Scene scene = new Scene(grid);
-		primaryStage.setScene(scene);
-
-		primaryStage.show();
 	}
 
-	public static void initiate(String[] args) {
-		launch(args);
+	//lets MasterGUI get its hands on the content
+	public Group getGroup(){
+		return contentGroup;
 	}
 }
