@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class ManyScenes extends Application {
+public class TestManyScenes extends Application {
 
     /**
      * @param args the command line arguments
